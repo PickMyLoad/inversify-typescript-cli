@@ -1,0 +1,16 @@
+version: '3.3'
+volumes:
+  db-data:
+services:
+  app:
+    image: node:9.2.1
+    command: ['yarn', 'start']
+    working_dir: /working_dir
+    volumes:
+      - ./:/working_dir/
+    ports:
+      - "5858:5858"
+    environment:
+      EMAIL: ${GIT_AUTHOR_EMAIL}
+      GIT_AUTHOR_EMAIL: ${GIT_AUTHOR_EMAIL}
+      GIT_AUTHOR_NAME: ${GIT_AUTHOR_NAME}
