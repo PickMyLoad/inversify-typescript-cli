@@ -1,0 +1,9 @@
+/.vscode
+/e2e
+/src
+docker-compose.yaml
+tsconfig.json
+tslint.json
+wallaby.config.js
+yarn-error.log
+yarn.lock
