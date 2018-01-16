@@ -28,7 +28,8 @@ Optionally create an inversify-cli.json file in your project root.
 inversify-cli.json
 ```
 {
-  "dir": "./src" // Folder to create the typescript files
+  "dir": "./src", // Folder to create the typescript files
+  "componentTests": true // Enable generation of component tests
 }
 ```
 

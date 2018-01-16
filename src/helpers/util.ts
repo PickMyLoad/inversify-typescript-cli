@@ -8,6 +8,7 @@ export const util = {
 
     let config: IConfig = {
       dir: './',
+      componentTests: true
     };
 
     if (fs.pathExistsSync(configFile)) {
