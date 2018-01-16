@@ -1,17 +1,20 @@
 {
   "name": "inversify-typescript-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI for creating, editing and modifying an application using inversify dependency injection.",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "repository": "git@github.com:danimbrogno/inversify-cli.git",
   "author": "PML Freight Tech",
-  "contributors": ["Dan Imbrogno <dan.imbrogno@gmail.com>"],
+  "contributors": [
+    "Dan Imbrogno <dan.imbrogno@gmail.com>"
+  ],
   "license": "MIT",
   "private": false,
   "bin": "index.js",
   "scripts": {
-    "build": "yarn run test && yarn run lint && yarn run compile && yarn run e2e",
+    "build": "yarn run test && yarn run lint && yarn run clean && yarn run compile && yarn run e2e",
+    "clean": "rimraf ./dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "compile": "tsc",
     "test": "ts-mocha --inspect=0.0.0.0:5858 src/**/*.spec.ts",
@@ -23,6 +26,7 @@
   },
   "dependencies": {
     "change-case": "^3.0.1",
+    "rimraf": "^2.6.2",
     "ts-simple-ast": "^6.2.0"
   },
   "devDependencies": {
