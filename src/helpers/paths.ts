@@ -22,5 +22,7 @@ export const paths = {
   getModuleFile: (config: IConfig, moduleName: string) =>
     path.join(paths.getModuleDir(config, moduleName), `${names.getModuleFileName(moduleName)}.ts`),
   getComponentFile: (config: IConfig, moduleName: string, componentName: string) =>
-    path.join(paths.getComponentsDir(config, moduleName), `${names.getComponentFileName(componentName)}.ts`)
+    path.join(paths.getComponentsDir(config, moduleName), `${names.getComponentFileName(componentName)}.ts`),
+  getComponentTestFile: (config: IConfig, moduleName: string, componentName: string) =>
+    path.join(paths.getComponentsDir(config, moduleName), `${names.getComponentFileName(componentName)}.spec.ts`)
 };

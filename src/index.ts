@@ -34,7 +34,8 @@ const myCommand = yargs.config(
 const main = async () => {
 
   const config: IConfig = {
-    dir: myCommand.dir
+    dir: myCommand.dir,
+    componentTests: myCommand.componentTests
   };
 
   try {

@@ -70,7 +70,7 @@ export class H<T> {
 
   }
 };`,
-classComponent: (
+componentClass: (
   moduleName: string,
   componentName: string,
   pathToRef: string,
@@ -87,6 +87,31 @@ export class ${
   constructor(
   ) { }
 
-}`
+}`,
+componentTest: (
+  componentName: string,
+  pathToComponent: string,
+  pathToHarness: string,
+  pathToRef: string
+) => `
+import { H } from '${pathToHarness}';
+import { ${names.getComponentClassName(componentName)} } from '${pathToComponent}';
+import { ref } from '${pathToRef}';
+
+describe('${names.getComponentClassName(componentName)}', () => {
+
+  let h: H<${names.getComponentClassName(componentName)}>;
+
+  beforeEach(() => h = new H(
+    ref.${names.getRefName(componentName)},
+    (container) => {
+
+      // Configure container for testing
+
+    }
+  ));
+
+});
+`
 
 };

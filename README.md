@@ -126,4 +126,3 @@ describe('Sample Test', () => {
 - Throw more informative errors
 - Add unit and e2e tests
 - Throw error if attempting to recreate a module or container that already exists
-- Create test file for components (toggleable via config file)

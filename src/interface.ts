@@ -6,6 +6,7 @@ export enum EActions {
 
 export interface IConfig {
   dir: string;
+  componentTests: boolean;
 }
 
 export interface IModuleNameConfig {

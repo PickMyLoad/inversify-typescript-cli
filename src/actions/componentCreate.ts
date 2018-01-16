@@ -28,11 +28,35 @@ const setupFiles = async (config: IConfig, componentConfig: IComponentConfig) =>
 
   await util.setupFile(
     componentFile,
-    templates.classComponent(
+    templates.componentClass(
       componentConfig.moduleName,
       componentConfig.componentName,
       util.getRelativeModuleSpecifier(componentFile, paths.getRefFile(config)),
       util.getRelativeModuleSpecifier(componentFile, paths.getInterfaceFile(config))
+    )
+  );
+
+};
+
+const addComponentTestFile = async (config, componentConfig) => {
+
+  const moduleFile = paths.getModuleFile(config, componentConfig.moduleName);
+
+  const componentFile = paths.getComponentFile(config, componentConfig.moduleName, componentConfig.componentName);
+
+  const componentTestFile = paths.getComponentTestFile(
+    config,
+    componentConfig.moduleName,
+    componentConfig.componentName
+  );
+
+  await util.setupFile(
+    componentTestFile,
+    templates.componentTest(
+      componentConfig.componentName,
+      util.getRelativeModuleSpecifier(componentTestFile, componentFile),
+      util.getRelativeModuleSpecifier(componentTestFile, paths.getHarnessFile(config)),
+      util.getRelativeModuleSpecifier(componentTestFile, paths.getRefFile(config))
     )
   );
 
@@ -169,5 +193,10 @@ export const componentCreate = async (config: IConfig, componentConfig: ICompone
   await addSymbolToRef(config, componentConfig);
 
   await bindComponentToModule(config, componentConfig);
+
+  if (config.componentTests) {
+
+    await addComponentTestFile(config, componentConfig);
+  }
 
 };

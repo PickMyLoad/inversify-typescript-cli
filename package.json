@@ -49,5 +49,10 @@
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
     "yargs": "^10.0.3"
+  },
+  "peerDependencies": {
+    "@types/mocha": "^2.2.46",
+    "inversify": "^4.9.0",
+    "mocha": "^4.1.0"
   }
 }
