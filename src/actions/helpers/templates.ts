@@ -13,6 +13,13 @@ export const container = () => {
 
   const myContainer = new Container();
 
+  const moduleConfigs = [
+  ];
+
+  moduleConfigs.map(
+    (moduleConfig) => myContainer.load(moduleConfig.module.container(moduleConfig.config))
+  )
+
   return myContainer;
 
 };`,
@@ -57,6 +64,38 @@ export class H<T> {
     }
 
 }`,
-  ref: `export const ref = {};`
+  ref: `export const ref = {};`,
+  moduleIndex: (moduleName: string, pathToRef: string) => `import { ContainerModule, interfaces } from 'inversify';
+  import { ref } from '${pathToRef}';
+
+  export const ${moduleName} = {
+
+  container: (config?: any) => {
+
+    const binder: interfaces.ContainerModuleCallBack = (bind) => {
+
+    }
+
+    return new ContainerModule(binder);
+
+  }
+};`,
+classComponent: (
+  moduleName: string,
+  componentName: string,
+  pathToRef: string,
+  componentInterfaceName: string,
+  pathToInterface: string) =>
+`import { injectable } from 'inversify';
+import { ref } from '${pathToRef}';
+import { ${componentInterfaceName} } from '${pathToInterface}';
+
+@injectable()
+export class ${componentName} implements ${componentInterfaceName} {
+
+  constructor(
+  ) { }
+
+}`
 
 };

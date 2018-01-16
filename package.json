@@ -24,6 +24,8 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
+    "change-case": "^3.0.1",
+    "ts-simple-ast": "^6.2.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",

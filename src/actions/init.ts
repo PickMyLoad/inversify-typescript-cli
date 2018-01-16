@@ -1,3 +1,5 @@
+import { setupDir } from './helpers/setupDir';
+import { setupFile } from './helpers/setupFile';
 import { dirPaths } from './helpers/dirPaths';
 import { IInitConfig } from './../interface';
 import * as fs from 'fs-extra';
@@ -5,78 +7,39 @@ import * as path from 'path';
 import { filePaths } from './helpers/filePaths';
 import { templates } from './helpers/templates';
 
-interface IFileSetup {
-  path: string;
-  template: string;
-}
-
-interface IDirSetup {
-  path: string;
-}
-
-const setupFileStep = async (mySetupStep: IFileSetup) => {
-
-  if (false === await fs.pathExists(mySetupStep.path)) {
-
-    await fs.ensureFile(mySetupStep.path);
-
-    await fs.writeFile(mySetupStep.path, mySetupStep.template);
-
-  }
-
-};
-
-const setupDirStep = async (mySetupStep: IDirSetup) => {
-
-  if (false === await fs.pathExists(mySetupStep.path)) {
-
-    await fs.ensureDir(mySetupStep.path);
-
-  }
-
-};
-
 const setupDirs = async (config: IInitConfig) => {
 
-  const setups: IDirSetup[] = [
-    {
-      path: dirPaths.modules(config.folder)
-    }
-  ];
-
-  await Promise.all(
-    setups.map((setup) => setupDirStep(setup))
-  );
+  await setupDir(dirPaths.modules(config.dir));
 
 };
 
 const setupFiles = async (config: IInitConfig) => {
 
-  const setups: IFileSetup[] = [
+  const setups = [
     {
-      path: filePaths.app(config.folder),
+      path: filePaths.app(config.dir),
       template: templates.app
     },
     {
-      path: filePaths.container(config.folder),
+      path: filePaths.container(config.dir),
       template:  templates.container
     },
     {
-      path: filePaths.harness(config.folder),
+      path: filePaths.harness(config.dir),
       template: templates.harness
     },
     {
-      path: filePaths.interface(config.folder),
+      path: filePaths.interface(config.dir),
       template: ``
     },
     {
-      path: filePaths.ref(config.folder),
+      path: filePaths.ref(config.dir),
       template: templates.ref
     }
   ];
 
   await Promise.all(
-    setups.map((setup) => setupFileStep(setup))
+    setups.map((setup) => setupFile(setup.path, setup.template))
   );
 
 };
