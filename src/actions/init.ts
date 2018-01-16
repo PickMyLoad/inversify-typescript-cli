@@ -1,50 +1,48 @@
-import { setupDir } from './helpers/setupDir';
-import { setupFile } from './helpers/setupFile';
-import { dirPaths } from './helpers/dirPaths';
-import { IInitConfig } from './../interface';
+import { IConfig } from './../interface';
+import { util } from './../helpers/util';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { filePaths } from './helpers/filePaths';
-import { templates } from './helpers/templates';
+import { paths } from './../helpers/paths';
+import { templates } from './../helpers/templates';
 
-const setupDirs = async (config: IInitConfig) => {
+const setupDirs = async (config: IConfig) => {
 
-  await setupDir(dirPaths.modules(config.dir));
+  await util.setupDir(paths.getModulesDir(config));
 
 };
 
-const setupFiles = async (config: IInitConfig) => {
+const setupFiles = async (config: IConfig) => {
 
   const setups = [
     {
-      path: filePaths.app(config.dir),
+      path: paths.getAppFile(config),
       template: templates.app
     },
     {
-      path: filePaths.container(config.dir),
+      path: paths.getContainerFile(config),
       template:  templates.container
     },
     {
-      path: filePaths.harness(config.dir),
+      path: paths.getHarnessFile(config),
       template: templates.harness
     },
     {
-      path: filePaths.interface(config.dir),
+      path: paths.getInterfaceFile(config),
       template: ``
     },
     {
-      path: filePaths.ref(config.dir),
+      path: paths.getRefFile(config),
       template: templates.ref
     }
   ];
 
   await Promise.all(
-    setups.map((setup) => setupFile(setup.path, setup.template))
+    setups.map((setup) => util.setupFile(setup.path, setup.template))
   );
 
 };
 
-export const init = async (config: IInitConfig) => {
+export const init = async (config: IConfig) => {
 
   await setupFiles(config);
 

@@ -1,94 +1,95 @@
-import { moduleCreate } from './actions/module/moduleCreate';
-import { componentCreate } from './actions/module/componentCreate';
+import { util } from './helpers/util';
+import { moduleCreate } from './actions/moduleCreate';
+import { componentCreate } from './actions/componentCreate';
 import * as yargs from 'yargs';
-import { EActions } from './interface';
+import * as fs from 'fs-extra';
+import { EActions, IConfig } from './interface';
 import { init } from './actions/init';
 
-const myCommand = yargs
-.command(
-  `${EActions.INIT} <folder>`,
-  `Create an App`,
-  (conf: yargs.Argv) => conf.option('folder', { describe: 'Folder', demandOption: true})
-)
-.command(
-  `${EActions.MODULE} <action> <folder> <moduleName>`,
-  'Create a Module',
-  (conf: yargs.Argv) =>
-    conf
-      .option('action', { describe: 'Action', demandOption: true})
-      .option('folder', { describe: 'Folder', demandOption: true})
-      .option('moduleName', { describe: 'Name of Module', demandOption: true})
-)
-.command(
-  `${EActions.COMPONENT} <action> <folder> <moduleName> <componentName>`,
-  'Create a Component',
-  (conf: yargs.Argv) =>
-    conf
-      .option('action', { describe: 'Action', demandOption: true})
-      .option('folder', { describe: 'Folder', demandOption: true})
-      .option('moduleName', { describe: 'Name of Module', demandOption: true})
-      .option('componentName', { describe: 'Name of Component', demandOption: true})
-)
-.argv;
+const myCommand = yargs.config(
+    util.getConfig()
+  )
+  .command(
+    `${EActions.INIT}`,
+    `Create an App`
+  )
+  .command(
+    `${EActions.MODULE} <action> <moduleName>`,
+    'Create a Module',
+    (conf: yargs.Argv) =>
+      conf
+        .option('action', { describe: 'Action', demandOption: true})
+        .option('moduleName', { describe: 'Name of Module', demandOption: true})
+  )
+  .command(
+    `${EActions.COMPONENT} <action> <moduleName> <componentName>`,
+    'Create a Component',
+    (conf: yargs.Argv) =>
+      conf
+        .option('action', { describe: 'Action', demandOption: true})
+        .option('moduleName', { describe: 'Name of Module', demandOption: true})
+        .option('componentName', { describe: 'Name of Component', demandOption: true})
+  ).argv;
 
 const main = async () => {
 
+  const config: IConfig = {
+    dir: myCommand.dir
+  };
+
   try {
+    switch (myCommand._[0]) {
 
-  switch (myCommand._[0]) {
+      case EActions.INIT:
 
-    case EActions.INIT:
+        await init(
+          config
+        );
 
-      await init(
-        {
-          dir: myCommand.folder
+        break;
+
+      case EActions.MODULE:
+
+        switch (myCommand.action) {
+
+          case 'create':
+
+            await moduleCreate(
+              config,
+              {
+                moduleName: myCommand.moduleName
+              }
+            );
+
+            break;
+
         }
-      );
 
-      break;
+        break;
 
-    case EActions.MODULE:
+      case EActions.COMPONENT:
 
-      switch (myCommand.action) {
+        switch (myCommand.action) {
 
-        case 'create':
+          case 'create':
 
-          await moduleCreate(
-            {
-              dir: myCommand.folder,
-              moduleName: myCommand.moduleName
-            }
-          );
+            await componentCreate(
+              config,
+              {
+                moduleName: myCommand.moduleName,
+                componentName: myCommand.componentName
+              }
+            );
 
-          break;
+            break;
 
-      }
+        }
 
-      break;
+        break;
 
-    case EActions.COMPONENT:
+    }
 
-      switch (myCommand.action) {
-
-        case 'create':
-
-          await componentCreate(
-            {
-              dir: myCommand.folder,
-              moduleName: myCommand.moduleName,
-              componentName: myCommand.componentName
-            }
-          );
-
-          break;
-
-      }
-
-      break;
-
-  }
-
-  process.exit();
+    process.exit();
 
 } catch (e) {
 

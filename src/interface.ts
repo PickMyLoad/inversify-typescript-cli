@@ -4,21 +4,19 @@ export enum EActions {
   COMPONENT = 'component'
 }
 
-export interface IDirConfig {
+export interface IConfig {
   dir: string;
-
 }
+
 export interface IModuleNameConfig {
   moduleName: string;
 }
 export interface IComponentNameConfig {
   componentName: string;
 }
-export interface IInitConfig extends IDirConfig {
-}
-export interface IModuleConfig extends IDirConfig, IModuleNameConfig {
+export interface IModuleConfig extends IModuleNameConfig {
 
 }
-export interface IComponentConfig extends IDirConfig, IComponentNameConfig, IModuleNameConfig {
+export interface IComponentConfig extends IComponentNameConfig, IModuleNameConfig {
 
 }

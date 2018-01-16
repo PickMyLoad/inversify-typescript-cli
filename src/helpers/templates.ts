@@ -1,6 +1,9 @@
+import { names } from './names';
+
 export const templates = {
-  app: `import { container} from './container';
+  app: `import { container } from './container';
 import { ref } from './ref';
+
 export const app = () => {
 
   container();
@@ -24,7 +27,6 @@ export const container = () => {
 
 };`,
   harness: `import 'reflect-metadata';
-import * as testdouble from 'testdouble';
 import { Container } from 'inversify';
 import { ref } from './ref';
 import { container } from './container';
@@ -34,8 +36,6 @@ export type ContainerConfigurator<T> = (self: H<T>) => void;
 export class H<T> {
 
   static ref = ref;
-
-  static td = testdouble;
 
   sut: T;
 
@@ -53,22 +53,12 @@ export class H<T> {
 
     }
 
-    rebind<U>(type: symbol, dblFunc: (obj: U) => U = testdouble.object): U {
-
-    const dbl = dblFunc(this.container.get<U>(type));
-
-    this.container.rebind<U>(type).toConstantValue(dbl);
-
-    return dbl;
-
-    }
-
 }`,
   ref: `export const ref = {};`,
   moduleIndex: (moduleName: string, pathToRef: string) => `import { ContainerModule, interfaces } from 'inversify';
   import { ref } from '${pathToRef}';
 
-  export const ${moduleName} = {
+  export const ${names.getModuleVarName(moduleName)} = {
 
   container: (config?: any) => {
 
@@ -84,14 +74,15 @@ classComponent: (
   moduleName: string,
   componentName: string,
   pathToRef: string,
-  componentInterfaceName: string,
   pathToInterface: string) =>
 `import { injectable } from 'inversify';
 import { ref } from '${pathToRef}';
-import { ${componentInterfaceName} } from '${pathToInterface}';
+import { ${names.getComponentInterfaceName(componentName)} } from '${pathToInterface}';
 
 @injectable()
-export class ${componentName} implements ${componentInterfaceName} {
+export class ${
+  names.getComponentClassName(componentName)
+} implements ${names.getComponentInterfaceName(componentName)} {
 
   constructor(
   ) { }
