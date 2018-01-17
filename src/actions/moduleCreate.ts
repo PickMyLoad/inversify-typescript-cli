@@ -7,18 +7,7 @@ import Ast, { ArrayLiteralExpression, FunctionDeclaration,
   Expression, ArrowFunction, FunctionExpression } from 'ts-simple-ast';
 import { SyntaxKind } from 'typescript';
 
-const setupDirs = async (config: IConfig, moduleConfig: IModuleConfig) => {
-
-  await util.setupDir(
-    paths.getModuleDir(
-      config,
-      moduleConfig.moduleName
-    )
-  );
-
-};
-
-const setupFiles = async (config: IConfig, moduleConfig: IModuleConfig) => {
+const setup = async (config: IConfig, moduleConfig: IModuleConfig) => {
 
   const moduleFile = paths.getModuleFile(config, moduleConfig.moduleName);
   const refPath = paths.getRefFile(config);
@@ -71,9 +60,7 @@ const addModuleToApp = async (config: IConfig, moduleConfig: IModuleConfig) => {
 };
 export const moduleCreate = async (config: IConfig, moduleConfig: IModuleConfig) => {
 
-  await setupDirs(config, moduleConfig);
-
-  await setupFiles(config, moduleConfig);
+  await setup(config, moduleConfig);
 
   await addModuleToApp(config, moduleConfig);
 

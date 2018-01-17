@@ -18,11 +18,11 @@ export const paths = {
   getRefFile: (config: IConfig) =>
     path.join(process.cwd(), config.dir, 'ref.ts'),
   getModuleDir: (config: IConfig, moduleName: string) =>
-    path.join(paths.getModulesDir(config), names.getModuleDirName(moduleName)),
+    path.join(paths.getModulesDir(config), ...names.getModuleDirName(moduleName)),
   getModuleFile: (config: IConfig, moduleName: string) =>
-    path.join(paths.getModuleDir(config, moduleName), `${names.getModuleFileName(moduleName)}.ts`),
+    path.join(paths.getModulesDir(config), ...names.getModuleFileName(moduleName)),
   getComponentFile: (config: IConfig, moduleName: string, componentName: string) =>
-    path.join(paths.getComponentsDir(config, moduleName), `${names.getComponentFileName(componentName)}.ts`),
+    path.join(paths.getComponentsDir(config, moduleName), ...names.getComponentFileName(componentName)),
   getComponentTestFile: (config: IConfig, moduleName: string, componentName: string) =>
-    path.join(paths.getComponentsDir(config, moduleName), `${names.getComponentFileName(componentName)}.spec.ts`)
+    path.join(paths.getComponentsDir(config, moduleName), ...names.getComponentTestFileName(componentName))
 };
