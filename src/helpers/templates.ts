@@ -11,18 +11,10 @@ export const app = () => {
 };`,
   container: `import 'reflect-metadata';
 import { Container } from 'inversify';
-import { IContainerModuleLoaderConfig } from './interface';
 
 export const container = () => {
 
   const myContainer = new Container();
-
-  const moduleConfigs: IContainerModuleLoaderConfig[] = [
-  ];
-
-  moduleConfigs.map(
-    (moduleConfig) => myContainer.load(moduleConfig.module.container(moduleConfig.config))
-  )
 
   return myContainer;
 
@@ -55,11 +47,7 @@ export class H<T> {
     }
 
 }`,
-  interface: `import { ContainerModule } from 'inversify';
-export interface IContainerModuleLoaderConfig {
-  module: ({container: (config?: any) => ContainerModule});
-  config: any;
-}`,
+  interface: ``,
   ref: `export const ref = {};`,
   moduleIndex: (moduleName: string, pathToRef: string) => `import { ContainerModule, interfaces } from 'inversify';
 import { ref } from '${pathToRef}';

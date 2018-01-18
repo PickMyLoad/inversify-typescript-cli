@@ -46,14 +46,11 @@ const addModuleToApp = async (config: IConfig, moduleConfig: IModuleConfig) => {
   const container = sourceFile.getVariableDeclarationOrThrow('container')
     .getInitializerIfKind(SyntaxKind.ArrowFunction) as FunctionExpression;
 
-  const moduleConfigs = container.getVariableDeclaration('moduleConfigs')
-      .getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression) as ArrayLiteralExpression;
+  const myContainerStatementIndex = container.getVariableDeclaration('myContainer').getChildIndex();
 
-  moduleConfigs.addElement(`
-  {
-    module: ${names.getModuleVarName(moduleConfig.moduleName)},
-    config: {}
-  }`);
+  container.insertStatements((myContainerStatementIndex + 1),
+    `myContainer.load(${names.getModuleVarName(moduleConfig.moduleName)}.container());`
+  );
 
   await sourceFile.save();
 
