@@ -173,7 +173,7 @@ const bindComponentToModule = async (config: IConfig, componentConfig: IComponen
     .getInitializerIfKindOrThrow(SyntaxKind.ArrowFunction) as ArrowFunction;
 
   binder.addStatements(
-    `bind<${componentInterfaceName}>(ref.${refName}).to(${componentClassName})`
+    `bind<${componentInterfaceName}>(ref.${refName}).to(${componentClassName});`
   );
 
   await sourceFile.save();

@@ -28,7 +28,7 @@ const setupFiles = async (config: IConfig) => {
     },
     {
       path: paths.getInterfaceFile(config),
-      template: ``
+      template: templates.interface
     },
     {
       path: paths.getRefFile(config),
