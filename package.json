@@ -1,6 +1,6 @@
 {
   "name": "inversify-typescript-cli",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "CLI for creating, editing and modifying an application using inversify dependency injection.",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -28,14 +28,15 @@
     "change-case": "^3.0.1",
     "fs-extra": "^4.0.2",
     "rimraf": "^2.6.2",
-    "ts-simple-ast": "^6.2.0"
+    "ts-simple-ast": "^6.2.0",
+    "typescript": "^2.6.1",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/chai-as-promised": "^7.1.0",
     "@types/chai-string": "^1.1.31",
     "@types/fs-extra": "^4.0.3",
-    "@types/lodash": "^4.14.77",
     "@types/mocha": "^2.2.43",
     "@types/node": "^8.0.45",
     "@types/yargs": "^8.0.2",
@@ -43,19 +44,15 @@
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.4.0",
     "inversify": "^4.3.0",
-    "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "nodemon": "^1.12.1",
     "reflect-metadata": "^0.1.10",
     "testdouble": "^3.2.6",
     "ts-mocha": "^1.0.3",
     "ts-node": "^3.3.0",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.1",
-    "yargs": "^10.0.3"
+    "tslint": "^5.8.0"
   },
   "peerDependencies": {
-    "@types/mocha": "^2.2.46",
     "inversify": "^4.9.0",
     "mocha": "^4.1.0"
   }
