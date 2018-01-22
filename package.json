@@ -27,7 +27,8 @@
   "dependencies": {
     "change-case": "^3.0.1",
     "rimraf": "^2.6.2",
-    "ts-simple-ast": "^6.2.0"
+    "ts-simple-ast": "^6.2.0",
+    "fs-extra": "^4.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -41,7 +42,6 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.4.0",
-    "fs-extra": "^4.0.2",
     "inversify": "^4.3.0",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
