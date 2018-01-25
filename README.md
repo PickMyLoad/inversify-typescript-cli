@@ -85,7 +85,7 @@ Before your tests bootstrap your harness (referred to below as "h").
 In your tests you can reference the component you are testing with `h.sut` (System Under Test).
 
 ```
-import * as Fs from 'fs';
+import * as Fs from 'fs-extra';
 import * as Path from 'path';
 import { H } from './../../../harness';
 import { ref } from './../../../ref';

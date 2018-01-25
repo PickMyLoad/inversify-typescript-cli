@@ -5,9 +5,8 @@ import { util } from './../helpers/util';
 import { IComponentConfig , IConfig} from "./../interface";
 import Ast, { ArrayLiteralExpression, FunctionDeclaration,
   Expression, ArrowFunction, FunctionExpression, ObjectLiteralExpression,
-  PropertyAccessExpression, MethodDeclaration, PropertyAssignment } from 'ts-simple-ast';
+  PropertyAccessExpression, MethodDeclaration, PropertyAssignment, createWrappedNode } from 'ts-simple-ast';
 import { SyntaxKind, Declaration, ObjectLiteralElementLike } from 'typescript';
-import { createWrappedNode } from 'ts-simple-ast/dist/createWrappedNode';
 
 const setupDirs = async (config: IConfig, componentConfig: IComponentConfig) => {
 
